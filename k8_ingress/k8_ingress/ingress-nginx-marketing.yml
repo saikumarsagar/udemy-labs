@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: devsecops
+  name: devsecops-ingress-nginx-marketing
+  labels:
+    app.kubernetes.io/name: devsecops-ingress-nginx-marketing
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /marketing
+        pathType: Prefix
+        backend:
+          service:
+            name: devsecops-marketing-clusterip
+            port:
+              number: 8222

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: devsecops
+  name: devsecops-ingress-nginx-loan
+  labels:
+    app.kubernetes.io/name: devsecops-ingress-nginx-loan
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3"
+    nginx.ingress.kubernetes.io/limit-rpm: "4"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "1"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /loan
+        pathType: Prefix
+        backend:
+          service:
+            name: devsecops-loan-clusterip
+            port:
+              number: 8111
